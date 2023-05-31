@@ -69,24 +69,54 @@ const Share = () => {
 
     return (
         <div className="share">
-            <div className="container">
-                <div className="top">
-                    <div className="left" style={{borderRadius:"20px"}} >
+            <div className="container" style={{ padding: "20px",display: "flex",
+      flexDirection:  "column", height: "35vh"
+      }}>
+                <div className="top" style={{display: "flex", alignItems: "center",height: "fit-content",
+        justifyContent: "space-between"}}>
+                    <div className="left" style={{display: "flex",
+          alignItems: "center",
+          flex : "3",
+          height: "fit-content",
+          justifyContent: "space-around" , borderRadius:"20px"}} >
                         <img
                             src={currentUser.profilePic}
                             alt="Profile picture"
+                            style={{width: "40px",height: "40px",borderRadius: "50%",
+                                objectFit: "cover"}}
                         />
-                        <input type="text" style={{color:"black"}} placeholder={`What's on your mind ${currentUser.name}?`} onChange={(e) => setDesc(e.target.value)} value={desc} />
+                        <input type="text" style={{border: "none",
+              outline: "none",
+              padding: "20px 10px",
+              backgroundColor: "transparent",
+              width: "60%",
+              color:"black"}} placeholder={`What's on your mind ${currentUser.name}?`} onChange={(e) => setDesc(e.target.value)} value={desc} />
                     </div>
-                    <div className="right">
-                        {file && <img alt="" className="file" src={URL.createObjectURL(file)} />
+                    <div className="right" style={{flex : "1",
+          display: "flex",
+          height: "fit-content",
+          justifyContent: "flex-end"}}>
+                        {file && <img alt="" className="file" style={{width : "100px",
+            height : "100px",
+            objectFit: "cover",
+            borderRadius: "0px"
+        }} src={URL.createObjectURL(file)} />
                         
                         }
                     </div>
                 </div>
                 <hr />
-                <div className="bottom">
-                    <div className="left"  style={{borderRadius:"20px"}}>
+                <div className="bottom" style={{display: "flex",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        height: "10vh"
+}}>
+                    <div className="left"  style={{display: "flex",
+          alignItems: "center",
+          height: "fit-content",
+          justifyContent: "flex-start",
+          gap: "20px",
+          flex: "6",borderRadius:"20px"}}>
                         <input type="file" id="file" style={{ display: "none" }} onChange={(e) => setFile(e.target.files[0])} />
                         <label htmlFor="file" className="item">
                             {/* <div className="item"> */}
@@ -103,8 +133,18 @@ const Share = () => {
                             <span>Tag Friends</span>
                         </div> */}
                     </div>
-                    <div className="right">
-                        <button onClick={handleShare}>Share</button>
+                    <div className="right" style={{flex: "2",
+          display: "flex",
+          justifyContent: "flex-end"}}>
+                        <button onClick={handleShare} style={{border: "none",
+            padding: "2px 10px",
+            color: "whitesmoke",
+            cursor: "pointer",
+            fontSize: "20px",
+
+            marginRight: "10px",
+            backgroundColor: "#151515",
+            borderRadius: "3px"}}>Share</button>
                     </div>
                 </div>
                 {/* {progress && <ProgressBar now={progress} label={`${progress}%`} /> } */}

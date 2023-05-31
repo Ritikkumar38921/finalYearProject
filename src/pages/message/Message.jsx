@@ -15,6 +15,8 @@ function Message(){
   let [file,setFile] = useState(null);
   let [user_id,setUserId] = useState(null);
 
+  
+
   useEffect(()=>{
      let wss = new WebSocket('ws://localhost:8080');
     console.log(wss);
@@ -70,6 +72,10 @@ function Message(){
         formdata.append('file',file);
         let data= await makeRequest.post("/upload/",formdata);
         console.log(data.data.url);
+        setFile(null);
+        let element = document.querySelector('#upload-photo');
+        element.value = "";
+
         
         return data.data.url;
     } catch (error) {
@@ -108,6 +114,7 @@ function Message(){
       setMessages((prev) => [...prev,{text : message, isBinary : false ,isSend : 'Y'}])
       console.log(messages);
       ws.send(m);
+      setFile(null);
     }
   }
 
@@ -126,11 +133,11 @@ function Message(){
     <div style={{width:"95vw",height:"90vh",display:"flex",marginTop:"4vh",marginLeft:"4vw"}}>
       
       <div style={{display:"flex",flex:"0.3",flexDirection:"column",overflowY:"scroll"}}>
-        <div style={{display:"flex",justifyContent:"start",gap:"20px",alignItems:"center",backgroundColor:"#009900",borderBottom:"3px solid white",color:"white",fontSize:"24px",padding:"16px"}}>
+        <div style={{display:"flex",justifyContent:"start",gap:"20px",alignItems:"center",backgroundColor:"#2e72d7",borderBottom:"3px solid white",color:"white",fontSize:"24px",padding:"16px",fontWeight: "700"}}>
           <ChatBubbleIcon style={{color:"blue",fontSize:"30px",color:"white"}}/>
           Chat
         </div>
-        <div style={{backgroundColor : "#009900",height:"100%"}}>
+        <div style={{backgroundColor : "#242227",height:"100%"}}>
         {
           onlinepeople.map(({userId,name},index)=>(
             <>{user_id != userId  && <div onClick={(e)=> setSelectedUser({userId,name})} style={{padding:"10px",display:"flex",height:"80px",alignItems:"center",justifyContent:"space-between"}}>
@@ -160,7 +167,14 @@ function Message(){
               return (
                 <>
                 {!ele?.isBinary && <p key={index} style={{color:"white",backgroundColor:"#5c00e6",width:"40%",clear:"both",float:ele.isSend === 'Y'?'right':'left',padding:"10px",borderRadius:"15px"}}>{ele?.text}</p>}
-                {ele?.isBinary && <img style={{width:"150px",height:"150px",clear:"both",float:ele.isSend === 'Y'?'right':'left'}} alt="this is image send" src={ele?.text} />}
+                {ele?.isBinary && (ele?.text?.split('.')[ele?.text?.split('.').length - 1] != 'mp4' || ele?.text?.split('/')[ele?.text?.split('/').length - 1] != 'file'== '.jpeg' ) &&  <img style={{width:"150px",height:"150px",clear:"both",float:ele.isSend === 'Y'?'right':'left'}} alt="this is image send" src={ele?.text} />}
+                {ele?.isBinary && ele?.text?.split('.')[ele?.text?.split('.').length - 1] == 'mp4' &&  <video style={{clear:"both",float:ele.isSend === 'Y'?'right':'left'}} width="320" height="190" muted controls>
+                          <source src={ele?.text} type="video/mp4" />
+                    </video>  
+                }
+                {ele?.isBinary && ele?.text?.split('/')[ele?.text?.split('/').length - 1] == 'file' && <object data={ele?.text} style={{clear:"both",float:ele.isSend === 'Y'?'right':'left'}} type="application/pdf" width="100%" height="500px"></object> 
+                }
+{/* <video style={{width:"150px",height:"150px",clear:"both",float:ele.isSend === 'Y'?'right':'left'}} alt="this is image send" src={ele?.text} />} */}
                 </>
                )
             })

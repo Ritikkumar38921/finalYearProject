@@ -34,6 +34,8 @@ const fetchPost=async()=>{
   })
 }
 
+// console.log(reels);
+
 useEffect(()=>{
   fetchPost();
   console.log(reels);

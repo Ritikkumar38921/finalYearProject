@@ -106,13 +106,13 @@ const Post = ({ post }) => {
                     <img src={post?.url} alt="" />
                 </div>
                 <div className="info">
-                    <div className="item" style={{color:"black"}}>
+                    <div className="item" style={{height:"20px", color:"black"}}>
                         {
                             ( post?.like?.includes(user.id) )  ? 
                          <FavoriteOutlinedIcon style={{color: "red"}} onClick={handleLike}  /> : <FavoriteBorderOutlinedIcon style={{color:"black"}} onClick={handleLike} />}
                          {post?.like?.length} Likes
                     </div>
-                    <div className="item" style={{color:"black"}} onClick={() => setCommentOpen(!commentOpen)}>
+                    <div className="item" style={{height:"20px",color:"black"}} onClick={() => setCommentOpen(!commentOpen)}>
                         <TextsmsOutlinedIcon />
                         See Comments
                     </div>

@@ -1,5 +1,6 @@
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import UserProfile from "./components/userProfile/UserProfile";
 import {
     createBrowserRouter,
     RouterProvider,
@@ -7,6 +8,8 @@ import {
     Outlet,
     Navigate,
 } from "react-router-dom";
+import Singlepost from "./components/SinglePost/Singlepost";
+import UserVideo from "./components/userVideo/UserVideo";
 import Navbar from "./components/navbar/Navbar";
 import ReelMain from "./reels/ReelMain.js";
 import LeftBar from "./components/leftBar/LeftBar";
@@ -75,9 +78,14 @@ function App() {
                 },
                 {
                     path: "/profile/:id",
-                    element: <Profile />,
+                    element: <UserProfile/>,
                 }
             ],
+        },
+        { 
+            path : "/explore",
+            element : <UserVideo />
+
         },
         {
             path: "/login",
